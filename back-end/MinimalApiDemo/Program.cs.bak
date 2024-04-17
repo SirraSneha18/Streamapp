@@ -1,0 +1,42 @@
+// Configure services
+/*
+using System.Linq;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Generic CORS policy to allow everything
+builder.Services.AddCors(o => o.AddDefaultPolicy(builder =>
+{
+    builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
+
+// Configure and enable middlewares
+var app = builder.Build();
+
+// Enable default file serving
+app.UseDefaultFiles();
+
+// Enable static file serving
+app.UseStaticFiles();
+
+
+app.MapGet("/stream/countries", async () =>
+{
+    async IAsyncEnumerable<CountryModel> StreamCountriesAsync()
+    {
+        var fak = new CountryModelFaker();
+        foreach (var country in fak.Generate(10))
+        {
+            await Task.Delay(500);
+            yield return country;
+        }
+    }
+    return StreamCountriesAsync();
+});
+
+// Run the app
+app.Run();
+
+*/

@@ -1,0 +1,49 @@
+<h1>Yo dawg</h1>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/oboe.js/2.1.5/oboe-browser.min.js"></script>
+
+<script>
+    // Make a request to the server endpoint that provides streaming JSON
+    oboe('/api/fluids-filters/pre-cache')
+        .node('.*', function(dataItem) {
+            // This callback will be invoked for each data item in the JSON stream
+            printTime();
+            console.log('Received data item:', dataItem);
+
+            // alert('Received data item:', JSON.stringify(dataItem))
+            // Process the data item as needed
+            // ...
+        })
+        
+        .node('{id name description}', function(dataItem) {
+            // This callback will be invoked for each data item in the JSON stream
+            printTime();
+            console.log('Received data item:', dataItem);
+            
+            // alert('Received data item:', JSON.stringify(dataItem))
+            // Process the data item as needed
+            // ...
+        })
+        .done(function() {
+            // This callback will be invoked when the streaming is complete
+            console.log('Streaming completed');
+        })
+        .fail(function(error) {
+            // This callback will be invoked if an error occurs during streaming
+            console.error('Streaming error:', error);
+        });
+    
+    
+    function printTime() {
+        const currentDateTime = new Date();
+        const year = currentDateTime.getFullYear();
+        const month = String(currentDateTime.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDateTime.getDate()).padStart(2, '0');
+        const hours = String(currentDateTime.getHours()).padStart(2, '0');
+        const minutes = String(currentDateTime.getMinutes()).padStart(2, '0');
+        const seconds = String(currentDateTime.getSeconds()).padStart(2, '0');
+
+        const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        console.log(formattedDateTime);
+    }
+</script>

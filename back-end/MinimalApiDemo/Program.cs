@@ -1,30 +1,8 @@
 // Configure services
-var builder = WebApplication.CreateBuilder(args);
 
-// Generic CORS policy to allow everything
-builder.Services.AddCors(o => o.AddPolicy("AllowAll", builder =>
-{
-    builder.AllowAnyOrigin()
-           .AllowAnyMethod()
-           .AllowAnyHeader();
-}));
+using System.Linq;
+using Microsoft.Extensions.Hosting;
 
-// Configure and enable middlewares
-var app = builder.Build();
+var b =  Program2.CreateHostBuilder(args);
 
-app.MapGet("/stream/countries", async () =>
-{
-    async IAsyncEnumerable<CountryModel> StreamCountriesAsync()
-    {
-        var countries = new List<CountryModel>(); // Your implementation here to get country list, in an ideal world the data source should be an asyncenumerable
-        foreach (var country in countries)
-        {
-            await Task.Delay(500);
-            yield return country;
-        }
-    }
-    return StreamCountriesAsync();
-});
-
-// Run the app
-app.Run();
+b.Build().Run();
